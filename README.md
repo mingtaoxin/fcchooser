@@ -1,13 +1,24 @@
 # fcchoser
-batch file to chose ac and download and start patching process for DJI AC using fcpatcher made custom firmware. 
+enables easily using the custom firmware made from the fc-patcher tool
 
-tldr: helps custom flashing of dji aircraft
+
+Flow:
+- User selects aircraft type
+- Tool downloads appropriate firmware
+- Runs dumldore
+- User Connect Aircrafts
+- Files are copied and appropriate state set
+- User Starts flash
+
+This is a batch file which makes things easier to flash using the tail end of the fc patcher process, custom made firmware.
+
+tldr: helps custom flashing of dji aircraft using fcpatcher made files
 
 prereqs:
-python3 installed
-java runtime environment or jdk installed
-dji aircraft
-knowing what you are doing, takes responsibility for safe flying
+- python3 installed
+- java runtime environment or jdk installed
+- dji aircraft
+- knowing what you are doing, takes responsibility for safe flying
 
 download the download.jar and the .bat file to a folder, then run the batch file. Choose your AC and follow the steps.
 
