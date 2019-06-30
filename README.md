@@ -1,4 +1,4 @@
-# fcchoser
+# fcchooser
 enables easily using the custom firmware made from the fc-patcher tool
 
 Credits to all the OG's, Matioupi, mefistotelis, fvantienen, jcase, jezzab, jan and anyone else involved with making the toolset or associated tools. Here's to the community
