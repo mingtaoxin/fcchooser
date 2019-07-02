@@ -3,8 +3,6 @@ REM Custom Fw chooser and flash starter
 REM made by digdat0, credits to ALL the OG's and folks in the community
 CLS
 SETLOCAL DisableDelayedExpansion
-python --version 2>NUL
-if errorlevel 1 goto NOPY
 REM only need java if using download.jar (thanks binary)
 java -version >nul 2>&1 && ( GOTO:MAIN
   ) || ( call )
@@ -606,18 +604,5 @@ Echo The aircraft may ask you to recalibrate sensors but if it does not then it 
 Echo Bye 
 Pause 
 GOTO EOF
-:NOPY
-CLS
-ECHO.
-ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
-ECHO -------------------------------------------------------------------------------------------
-ECHO. 
-ECHO  Python not installed, please download it from python.org
-ECHO.
-ECHO -------------------------------------------------------------------------------------------
-ECHO.
-TIMEOUT 2 >nul
-EXIT
 :EOF
 EXIT
