@@ -16,7 +16,6 @@ This is a batch file which makes things easier to flash using the tail end of th
 tldr: helps custom flashing of dji aircraft using fcpatcher made files
 
 prereqs:
-- python3 installed
 - java runtime environment or jdk installed
 - dji aircraft
 - knowing what you are doing, takes responsibility for safe flying
