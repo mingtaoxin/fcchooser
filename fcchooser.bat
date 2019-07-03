@@ -1,5 +1,5 @@
-ECHO c
 REM Custom Fw chooser and flash starter
+REM worked with bret8883 on it after he put out super patcher
 REM made by digdat0, credits to ALL the OG's and folks in the community
 CLS
 SETLOCAL DisableDelayedExpansion
@@ -10,19 +10,11 @@ javac -version >nul 2>&1 && ( GOTO:MAIN
  ) || ( echo.-: Java not installed...
 pause
 exit )
- :MAIN
+:MAIN
 SET APPVER=1.0
 SET ORIGDATE=June 29, 2019
 SET SAVEDATE=%DATE%
 REM change build version + versions when new builds to update
-REM *** MAVIC FILENAME IS GOOD, NEED TO UPDATE OTHERS ONCE THEY ARE UPLOADED #TODO
-set mavicfwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
-set p4sfwname=V2.00.0700_p4s_dji_system.bin
-set p4afwname=V1.00.0128_p4a_dji_system.bin
-set p4pfwname=V1.05.0600_p4p_dji_system.bin
-set p4pv2fwname=V1.00.1500_p4pv2_dji_system.bin
-set i2fwname=V1.02.0200_i2_dji_system.bin
-set spkfwname=V1.00.0900_spark_dji_system.bin
 set downloadpath="http://dji.polybotes.feralhosting.com/DJI-Firmware/BIN/! Matoupi FC_Patcher Custom Modified Firmare (Multiple Bird Models)/"
 GOTO MAIN1
 REm GOTO MAINDETECTFILE THIS ARE BROKEN NEED TO FIX
@@ -137,6 +129,7 @@ set acname=Mavic
 set acmodel=wm220
 set neededver=1.04.0300
 set fcver=3.02.44.10
+set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -147,17 +140,17 @@ ECHO  We will download the %acname% file. This file will remove height limit, nf
 ECHO  Galeleo satelite support. You must be on %neededver% for this to work.
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-IF EXIST "%mavicfwname%" (
+IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
 ECHO Downloading Mavic custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%mavicfwname% %mavicfwname% 
+java -jar download.jar %downloadpath%%fwname% %fwname% 
 )
 cd tools
-copy %mavicfwname% ..
-del %mavicfwname%
+copy %fwname%  ..
+del %fwname%
 cd ..
 rd tools
 CLS
@@ -177,6 +170,7 @@ set acname=Phantom 4 Standard
 set acmodel=wm330
 set neededver=2.00.0700
 set fcver=
+set fwname=V2.00.0700_p4s_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -187,17 +181,17 @@ ECHO  We will download the %acname% file. This file will remove height limit, nf
 ECHO  Galeleo satelite support. You must be on %neededver% for this to work.
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-IF EXIST "%p4sfwname%" (
+IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
 ECHO Downloading Mavic custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%p4sfwname% %p4sfwname%
+java -jar download.jar %downloadpath%%fwname% %fwname%
 )
 cd tools
-copy %p4sfwname% ..
-del %p4sfwname%
+copy %fwname% ..
+del %fwname%
 cd ..
 rd tools
 CLS
@@ -217,6 +211,7 @@ set acname=Phantom 4 Advanced
 set acmodel=wm332
 set neededver=1.00.0128
 set fcver=
+set fwname=V1.00.0128_p4a_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -227,17 +222,17 @@ ECHO  We will download the %acname% file. This file will remove height limit, nf
 ECHO  Galeleo satelite support. You must be on %neededver% for this to work.
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-IF EXIST "%p4afwname%" (
+IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
 ECHO Downloading Mavic custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%p4afwname% %p4afwname%
+java -jar download.jar %downloadpath%%fwname% %fwname%
 )
 cd tools
-copy %p4afwname% ..
-del %p4afwname%
+copy %fwname% ..
+del %fwname%
 cd ..
 rd tools
 CLS
@@ -258,6 +253,7 @@ set acname=Phantom 4 Pro
 set acmodel=wm331
 set neededver=1.05.0600
 set fcver=
+set fwname=V1.05.0600_p4p_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -268,17 +264,17 @@ ECHO  We will download the %acname% file. This file will remove height limit, nf
 ECHO  Galeleo satelite support. You must be on %neededver% for this to work.
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-IF EXIST "%p4pfwname%" (
+IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
 ECHO Downloading Mavic custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%p4pfwname% %p4pfwname%
+java -jar download.jar %downloadpath%%fwname% %fwname%
 )
 cd tools
-copy %p4pfwname% ..
-del %p4pfwname%
+copy %fwname% ..
+del %fwname%
 cd ..
 rd tools
 CLS
@@ -299,6 +295,7 @@ set acname=Phantom 4 Pro v2
 set acmodel=wm335
 set neededver=1.00.1500
 set fcver=
+set fwname=V1.00.1500_p4pv2_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -309,17 +306,17 @@ ECHO  We will download the %acname% file. This file will remove height limit, nf
 ECHO  Galeleo satelite support. You must be on %neededver% for this to work.
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-IF EXIST "%p4pv2fwname%" (
+IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
 ECHO Downloading Mavic custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%p4pv2fwname% %p4pv2fwname%
+java -jar download.jar %downloadpath%%fwname% %fwname%
 )
 cd tools
-copy %p4pv2fwname% ..
-del %p4pv2fwname%
+copy %fwname% ..
+del %fwname%
 cd ..
 rd tools
 CLS
@@ -340,6 +337,7 @@ set acname=Inspire 2
 set acmodel=wm620
 set neededver=1.02.0200
 set fcver=
+set fwname=V1.02.0200_i2_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -350,17 +348,17 @@ ECHO  We will download the %acname% file. This file will remove height limit, nf
 ECHO  Galeleo satelite support. You must be on %neededver% for this to work.
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-IF EXIST "%i2fwname%" (
+IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
 ECHO Downloading Mavic custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%i2fwname% %i2fwname% 
+java -jar download.jar %downloadpath%%fwname% %fwname%
 )
 cd tools
-copy %i2fwname% ..
-del %i2fwname%
+copy %fwname% ..
+del %fwname%
 cd ..
 rd tools
 CLS
@@ -381,6 +379,7 @@ set acname=Spark
 set acmodel=wm100
 set neededver=1.00.0900
 set fcver=
+set fwname=V1.00.0900_spark_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -391,17 +390,17 @@ ECHO  We will download the %acname% file. This file will remove height limit, nf
 ECHO  Galeleo satelite support. You must be on %neededver% for this to work.
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-IF EXIST "%spkfwname%" (
+IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
 ECHO Downloading Mavic custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%spkfwname% %spkfwname%
+java -jar download.jar %downloadpath%%fwname% %fwname%
 )
 cd tools
-copy %spkfwname% ..
-del %spkfwname%
+copy %fwname% ..
+del %fwname%
 cd ..
 rd tools
 CLS
@@ -463,8 +462,8 @@ ECHO ---------------------------------------------------------------------------
 ECHO  FC chooser %version% %appver%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
-ECHO PLEASE TAKE CARE TO FOLLOW INSTRUCTIONS EXACTLY 
-ECHO GO SLOW AND READ INSTRUCTIONS CAREFULLY BEFORE ACTING 
+ECHO Please take care to follow instructions exactly 
+ECHO Go slow and read instructions carefully before acting
 ECHO DO NOT SKIP STEPS, DO NOT DO EXTRA STEPS
 ECHO.
 ECHO STARTING PATCH SEQUENCE 
@@ -478,12 +477,13 @@ ECHO ---------------------------------------------------------------------------
 ECHO  FC chooser %version% %appver%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
-ECHO Downloading adb real quick, hang on ...
+ECHO Downloading adb real quick, hang on ... thanks brett8883
+ECHO.
 REM workaround for now, dl it from brett8883 repo thanks man
-java -jar download.jar https://github.com/brett8883/DJI_Super-Patcher/raw/V1.1/TOOLS/ProgramFiles/adb.exe adb.exe
-java -jar download.jar https://github.com/brett8883/DJI_Super-Patcher/raw/V1.1/TOOLS/ProgramFiles/AdbWinUsbApi.dll AdbWinUsbApi.dll
-java -jar download.jar https://github.com/brett8883/DJI_Super-Patcher/raw/V1.1/TOOLS/ProgramFiles/AdbWinApi.dll AdbWinApi.dll
-java -jar download.jar https://github.com/brett8883/DJI_Super-Patcher/raw/V1.1/TOOLS/ProgramFiles/libwinpthread-1.dll libwinpthread-1.dll
+java -jar download.jar https://github.com/brett8883/DJI_Super-Patcher/raw/master/TOOLS/ProgramFiles/adb.exe adb.exe
+java -jar download.jar https://github.com/brett8883/DJI_Super-Patcher/raw/master/TOOLS/ProgramFiles/AdbWinUsbApi.dll AdbWinUsbApi.dll
+java -jar download.jar https://github.com/brett8883/DJI_Super-Patcher/raw/master/TOOLS/ProgramFiles/AdbWinApi.dll AdbWinApi.dll
+java -jar download.jar https://github.com/brett8883/DJI_Super-Patcher/raw//TOOLS/ProgramFiles/libwinpthread-1.dll libwinpthread-1.dll
 cd tools
 copy adb.exe .. 
 copy AdbWinApi.dll ..
@@ -501,11 +501,13 @@ ECHO ---------------------------------------------------------------------------
 ECHO  FC chooser %version% %appver%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
-Echo Please ensure DUMLdore says you are on firmware %neededver%
-echo and that this is stock version 
-echo Then click "Enable ADB" in DUMLdore and wait for ADB to enable 
-echo then close DUMLdore 
+Echo Make sure DUMLdore says firmware %neededver% and that this is stock firmware
+ECHO.
+echo Then click "Enable ADB" in DUMLdore and wait for ADB to enable, then close DUMLdore 
+ECHO.
 Echo Continue once ADB has been enabled and DUMLdore is closed
+ECHO.
+ECHO ------------------------------------------------------------------------------------------- 
 start DUMLdoreV3.exe
 pause
 CLS
@@ -514,16 +516,24 @@ ECHO ---------------------------------------------------------------------------
 ECHO  FC chooser %version% %appver%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
-Echo WORKING PLEASE WAIT... 
+Echo ADB is trying to copy a file to the aircraft ...
+ECHO.
+ECHO.
 adb shell mount -o remount,rw /vendor
 adb shell mkdir /vendor/bin
 adb push dummy_verify.sh /vendor/bin/
 adb shell cd /vendor/bin/; chown root:root dummy_verify.sh; chmod 755 dummy_verify.sh; cp /sbin/dji_verify /vendor/bin/original_dji_verify_copy; sync; cd /
 adb shell mount -o remount,ro /vendor
-Echo.
-Echo please restart your aircraft
-echo Allow the aircraft to fully restart then reconnect to the PC
-echo Once fully restarted and connected please continue
+CLS
+ECHO.
+ECHO -------------------------------------------------------------------------------------------
+ECHO  FC chooser %version% %appver%
+ECHO -------------------------------------------------------------------------------------------
+Echo. 
+ECHO We copied the good stuff over, please restart your aircraft. Turn off then back on, keep 
+ECHO it connected to the PC.  Once fully powered off and on, please continue
+ECHO.
+ECHO.
 pause
 CLS
 ECHO.
@@ -531,32 +541,59 @@ ECHO ---------------------------------------------------------------------------
 ECHO  FC chooser %version% %appver%
 ECHO -------------------------------------------------------------------------------------------
 Echo.
-echo click "Enable ADB" in DUMLdore and then close DUMLdore before proceeding
+echo Click "Enable ADB" in DUMLdore and then close DUMLdore before proceeding
 start DUMLdoreV3.exe
+ECHO.
+ECHO.
 Pause
+CLS
+ECHO.
+ECHO -------------------------------------------------------------------------------------------
+ECHO  FC chooser %version% %appver%
+ECHO -------------------------------------------------------------------------------------------
 Echo.
-ECHO WORKING... PLEASE WAIT
+echo Working on mounting the verify file ... please wait
+Echo.
 Echo.
 adb shell mount -o bind /vendor/bin/dummy_verify.sh /sbin/dji_verify
+TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
 ECHO  FC chooser %version% %appver%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
-echo DO NOT TURN OFF AIRCRAFT
-echo please load the file
-echo "custom_306_super_patcher_MavicPro_MPP_dji_system.bin" into DUMLdore 
-ECHO then click "flash firmware" in DUMLdore
-ECHO Please allow DUMLdore to do its thing and do not disconnect the Mavic untill DUMLdore says it is ok to 
-echo once DUMLdore is finished please restart the aircraft
-echo Once aircraft has restarted fully and connected to PC 
-echo Then you may continue
-start DUMLdoreV3.exe
+echo Now, we willl flash the firmware file. DO NOT TURN OFF AIRCRAFT
+echo.
+echo Load the file %fwfile% into DUMLdore, click "flash firmware" 
+echo.
+ECHO Please allow DUMLdore to do its thing and do not disconnect the %acname% until finished
+echo.
+echo When complete, turn the aircraft off and back on.  
+echo.
 pause
+CLS
+ECHO.
+ECHO -------------------------------------------------------------------------------------------
+ECHO  FC chooser %version% %appver%
+ECHO -------------------------------------------------------------------------------------------
+ECHO.
+echo Now, we are done. You will want to validate that the flight controller version has updated.
 Echo.
+Echo NoLimitDronez app can show it, we downloaded but you need to run. You want %fcver% as the version
 Echo.
-Echo.
+ECHO From here, you can modify speed and battery settings in DJI assistant 1.1.2
+echo.
+ECHO You are literally all done! 
+pause
+CLS
+ECHO.
+ECHO -------------------------------------------------------------------------------------------
+ECHO  FC chooser %version% %appver%
+ECHO -------------------------------------------------------------------------------------------
+ECHO.
+echo Fly safe and responsibly. Now going to cleanup some things ...
+@echo off
 del dumldorev3.exe
 del payload.bin
 del new_payload.bin
@@ -574,35 +611,22 @@ del AdbWinApi.dll
 del AdbWinUsbApi.dll
 del libwinpthread-1.dll
 rd tools
+TIMEOUT 2 >nul
+GOTO CREDITS
+:CREDITS
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
 ECHO  FC chooser %version% %appver%
 ECHO -------------------------------------------------------------------------------------------
+Echo.
+ECHO  Credits .. alot of smart folk put in alot of work. I want to give kudos to 
+ECHO  all the OG's, Matioupi, mefistotelis, fvantienen, brett and anyone else involved 
+ECHO  with making the fc patcher toolset or associated tools. Here's to the community.
+ECHO                             respect -- digdat0
 ECHO.
-Echo You have completed the Super-Patcher process!
-Echo To verify Super-Patcher was successful 
-Echo I will open the NLD app which will show you the flight controller number 
-Echo for your aircraft. If Super-Patcher was successful this will show your 
-Echo Flight Controller number as %fcver%
-Echo.
-Echo If NLD app shows your Flight Controller # is not %fcver%
-ECHO then Super-Patcher was not successful and you should restart this process from the begining 
-Echo Ready to start NLD and check FC number?
-pause 
-start \tools\unzip\NLDModClient\NLDApp.exe
-Echo.
-ECHO Once you have verified Super-Patcher was successful you can optionally 
-ECHO connect to Assistant 2 or DJI Go 4 and use the simulator to ensure proper 
-Echo working order in the sim before testing outside 
-Echo You may now also modify any paramters you'd like using Assistant 2 1.1.2 in debug mode
-echo.
+ECHO -------------------------------------------------------------------------------------------
 pause
-Echo You have completed the patching operation. Please note all settings and parameters are likely now reset
-Echo remember to check your RTH altitude and such.
-Echo The aircraft may ask you to recalibrate sensors but if it does not then it isn't neccesary
-Echo Bye 
-Pause 
 GOTO EOF
 :EOF
 EXIT
