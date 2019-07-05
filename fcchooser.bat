@@ -1,3 +1,4 @@
+@echo off
 REM Custom Fw chooser and flash starter
 REM worked with bret8883 on it after he put out super patcher
 REM made by digdat0, credits to ALL the OG's and folks in the community
@@ -11,17 +12,42 @@ javac -version >nul 2>&1 && ( GOTO:MAIN
 pause
 exit )
 :MAIN
-SET APPVER=1.0
+SET APPVER=1.1
 SET ORIGDATE=June 29, 2019
 SET SAVEDATE=%DATE%
 REM change build version + versions when new builds to update
 set downloadpath="http://dji.polybotes.feralhosting.com/DJI-Firmware/BIN/! Matoupi FC_Patcher Custom Modified Firmare (Multiple Bird Models)/"
-GOTO MAIN1
-REm GOTO MAINDETECTFILE THIS ARE BROKEN NEED TO FIX
+GOTO FLOW
+REM selectFILEMAIN
+:FLOW 
+REM This is temp to allow easy testing
+@echo off
+CLS
+ECHO.
+ECHO -------------------------------------------------------------------------------------------
+ECHO  FC chooser %version% %appver%
+ECHO -------------------------------------------------------------------------------------------
+ECHO. 
+ECHO  Which flow? User selection or fw file detection?
+ECHO.
+ECHO -------------------------------------------------------------------------------------------
+ECHO.
+ECHO   1) Detect & display custom fw filename in folder
+ECHO   2) User selected firmware choice from a list
+ECHO.
+SET /P M=Chose your aircraft: 
+IF %M%==1 GOTO selectFILEMAIN
+IF %M%==2 GOTO MAIN1
+IF %M%==Q GOTO CREDITS
+IF %M%==X GOTO CREDITS
+IF %M%==q GOTO CREDITS
+IF %M%==x GOTO CREDITS
 :RESOLVE
 SET filename=%1
 GOTO :EOF
 :selectFILEMAIN
+REM the tool will detect if there are dji_system.* files in the folder, if so will prompt and ask user to select
+REM if no detection is found, then it moves to user choice of aircraft
 @echo off
 md tools
 @ECHO OFF
@@ -68,31 +94,36 @@ ECHO  Evaluating the file ... caller please hold
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
-REM first we try and see if a cutom file is in the folder, if so it selects it and 
-for /f "tokens=1-5* delims=_" %%A in ('dir /b /a-d "*DJI_SYSTEM.*"') do (
+REM we will also set variables using the filename
+for /f "tokens=1-5* delims=_" %%A in ('dir /b /a-d "%filename%"') do (
   set filenamespec=%%~A_%%~B_%%~C_%%~D_%%~E
   set filenameversion=%%~A
   set uname=%%~B
-  set model=%%~C
+  set acname=%%~C
   set djiname=%%~D
   set system=%%~E
-)
-REM if %model%=wm220 goto MAVIC 
-REM IF %model%=wm330 goto p4s
-REM IF %model%=wm332 goto p4a
-REM IF %model%=wm331 goto p4p
-REM IF %model%=wm335 goto p4pv2
-REM IF %model%=wm620 goto i2
-REM IF %model%=wm100 goto spk
-REM NOME OF THE BELOW WORK #TODO
-if %model%==Mavic THEN goto MAVIC ELSE 
-IF %model%==p4s THEN goto p4s ELSE
-IF %model%==p4a THEN goto p4a ELSE
-IF %model%==p4p THEN goto p4p ELSE
-IF %model%==p4pv2 THEN goto p4pv2 ELSE
-IF %model%==i2 THEN goto i2 ELSE
-IF %model%==spark THEN goto spk
-else goto MAIN1
+  )
+if "%acname%"=="Mavic" GOTO MAVIC
+if "%acname%"=="mavic" GOTO MAVIC
+IF "%acname%"=="p4s" GOTO p4s
+IF "%acname%"=="p4a" goto p4a
+IF "%acname%"=="p4p" goto p4p
+IF "%acname%"=="p4pv2" goto p4pv2
+IF "%acname%"=="i2" goto i2
+IF "%acname%"=="Spark" goto spk
+IF "%acname%"=="spark" goto spk
+CLS
+ECHO.
+ECHO -------------------------------------------------------------------------------------------
+ECHO  FC chooser %version% %appver%
+ECHO -------------------------------------------------------------------------------------------
+ECHO. 
+ECHO  We couldnt find any valid files .. will let you choose.
+ECHO.
+ECHO -------------------------------------------------------------------------------------------
+ECHO.
+TIMEOUT 2 >nul
+GOTO MAIN1 
 :MAIN1
 @echo off
 md tools
@@ -140,11 +171,12 @@ ECHO  We will download the %acname% file. This file will remove height limit, nf
 ECHO  Galeleo satelite support. You must be on %neededver% for this to work.
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
+pause
 IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
-ECHO Downloading Mavic custom firmware file, please wait .. 
+ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
 java -jar download.jar %downloadpath%%fwname% %fwname% 
 )
@@ -153,10 +185,11 @@ copy %fwname%  ..
 del %fwname%
 cd ..
 rd tools
+TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  Download successful. We will start patching process now for your %acname%
@@ -170,11 +203,12 @@ set acname=Phantom 4 Standard
 set acmodel=wm330
 set neededver=2.00.0700
 set fcver=
-set fwname=V2.00.0700_p4s_dji_system.bin
+REM set fwname=V2.00.0700_p4s_dji_system.bin
+set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  We will download the %acname% file. This file will remove height limit, nfz and add 
@@ -185,7 +219,7 @@ IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
-ECHO Downloading Mavic custom firmware file, please wait .. 
+ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
 java -jar download.jar %downloadpath%%fwname% %fwname%
 )
@@ -194,10 +228,11 @@ copy %fwname% ..
 del %fwname%
 cd ..
 rd tools
+TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  Download successful. We will start patching process now for your %acname%
@@ -211,11 +246,12 @@ set acname=Phantom 4 Advanced
 set acmodel=wm332
 set neededver=1.00.0128
 set fcver=
-set fwname=V1.00.0128_p4a_dji_system.bin
+rem set fwname=V1.00.0128_p4a_dji_system.bin
+set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  We will download the %acname% file. This file will remove height limit, nfz and add 
@@ -226,7 +262,7 @@ IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
-ECHO Downloading Mavic custom firmware file, please wait .. 
+ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
 java -jar download.jar %downloadpath%%fwname% %fwname%
 )
@@ -238,7 +274,7 @@ rd tools
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  Download successful. We will start patching process now for your %acname%
@@ -253,11 +289,12 @@ set acname=Phantom 4 Pro
 set acmodel=wm331
 set neededver=1.05.0600
 set fcver=
-set fwname=V1.05.0600_p4p_dji_system.bin
+rem set fwname=V1.05.0600_p4p_dji_system.bin
+set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  We will download the %acname% file. This file will remove height limit, nfz and add 
@@ -268,7 +305,7 @@ IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
-ECHO Downloading Mavic custom firmware file, please wait .. 
+ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
 java -jar download.jar %downloadpath%%fwname% %fwname%
 )
@@ -277,10 +314,11 @@ copy %fwname% ..
 del %fwname%
 cd ..
 rd tools
+TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  Download successful. We will start patching process now for your %acname%
@@ -288,18 +326,19 @@ ECHO.
 ECHO -------------------------------------------------------------------------------------------
 TIMEOUT 2 >nul
 GOTO SUPERPATCHER
-
 :P4PV2
 @echo off
 set acname=Phantom 4 Pro v2
 set acmodel=wm335
 set neededver=1.00.1500
 set fcver=
-set fwname=V1.00.1500_p4pv2_dji_system.bin
+rem set fwname=V1.00.1500_p4pv2_dji_system.bin
+set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
+
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  We will download the %acname% file. This file will remove height limit, nfz and add 
@@ -310,7 +349,7 @@ IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
-ECHO Downloading Mavic custom firmware file, please wait .. 
+ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
 java -jar download.jar %downloadpath%%fwname% %fwname%
 )
@@ -319,10 +358,11 @@ copy %fwname% ..
 del %fwname%
 cd ..
 rd tools
+TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  Download successful. We will start patching process now for your %acname%
@@ -337,11 +377,12 @@ set acname=Inspire 2
 set acmodel=wm620
 set neededver=1.02.0200
 set fcver=
-set fwname=V1.02.0200_i2_dji_system.bin
+rem set fwname=V1.02.0200_i2_dji_system.bin
+set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  We will download the %acname% file. This file will remove height limit, nfz and add 
@@ -352,7 +393,7 @@ IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
-ECHO Downloading Mavic custom firmware file, please wait .. 
+ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
 java -jar download.jar %downloadpath%%fwname% %fwname%
 )
@@ -361,10 +402,11 @@ copy %fwname% ..
 del %fwname%
 cd ..
 rd tools
+TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  Download successful. We will start patching process now for your %acname%
@@ -372,18 +414,18 @@ ECHO.
 ECHO -------------------------------------------------------------------------------------------
 TIMEOUT 2 >nul
 GOTO SUPERPATCHER
-
 :SPK
 @echo off
 set acname=Spark
 set acmodel=wm100
 set neededver=1.00.0900
 set fcver=
-set fwname=V1.00.0900_spark_dji_system.bin
+rem set fwname=V1.00.0900_spark_dji_system.bin
+set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  We will download the %acname% file. This file will remove height limit, nfz and add 
@@ -394,7 +436,7 @@ IF EXIST "%fwname%" (
 GOTO SUPERPATCHER
 ) ELSE (
 ECHO.
-ECHO Downloading Mavic custom firmware file, please wait .. 
+ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
 java -jar download.jar %downloadpath%%fwname% %fwname%
 )
@@ -403,10 +445,11 @@ copy %fwname% ..
 del %fwname%
 cd ..
 rd tools
+TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO  Download successful. We will start patching process now for your %acname%
@@ -422,7 +465,7 @@ md tools
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
 ECHO Downloading dumldore3 files
@@ -443,12 +486,12 @@ TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
 ECHO Downloading NoLimitDronez to verify 
 ECHO.
-java -jar download.jar https://nolimitdronez.com/downloads/nldapp.zip nldapp.zip
+REM java -jar download.jar https://nolimitdronez.com/downloads/nldapp.zip nldapp.zip
 cd tools 
 copy *.zip ..
 del *.zip
@@ -459,7 +502,7 @@ REM NEED SOLUTION NOW TO UNZIP THE FILE #TODO
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO Please take care to follow instructions exactly 
@@ -468,13 +511,13 @@ ECHO DO NOT SKIP STEPS, DO NOT DO EXTRA STEPS
 ECHO.
 ECHO STARTING PATCH SEQUENCE 
 ECHO.
-Echo Please turn on the Mavic and after it has fully started, connect to the PC
+Echo Please turn on the %acname% and after it has fully started, connect to the PC
 echo Continue when ready to begin
 pause
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 ECHO Downloading adb real quick, hang on ... thanks brett8883
@@ -498,7 +541,7 @@ TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO. 
 Echo Make sure DUMLdore says firmware %neededver% and that this is stock firmware
@@ -513,7 +556,7 @@ pause
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
 Echo ADB is trying to copy a file to the aircraft ...
@@ -527,7 +570,7 @@ adb shell mount -o remount,ro /vendor
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 Echo. 
 ECHO We copied the good stuff over, please restart your aircraft. Turn off then back on, keep 
@@ -538,7 +581,7 @@ pause
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 Echo.
 echo Click "Enable ADB" in DUMLdore and then close DUMLdore before proceeding
@@ -549,7 +592,7 @@ Pause
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 Echo.
 echo Working on mounting the verify file ... please wait
@@ -560,7 +603,7 @@ TIMEOUT 2 >nul
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
 echo Now, we willl flash the firmware file. DO NOT TURN OFF AIRCRAFT
@@ -575,7 +618,7 @@ pause
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
 echo Now, we are done. You will want to validate that the flight controller version has updated.
@@ -585,14 +628,16 @@ Echo.
 ECHO From here, you can modify speed and battery settings in DJI assistant 1.1.2
 echo.
 ECHO You are literally all done! 
+echo.
 pause
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 							Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
 echo Fly safe and responsibly. Now going to cleanup some things ...
+pause
 @echo off
 del dumldorev3.exe
 del payload.bin
@@ -600,16 +645,17 @@ del new_payload.bin
 del root.bin
 del new_root.bin
 del *.bin
+taskkill /im adb.exe /f
+del adb.exe 
+del AdbWinApi.dll
+del AdbWinUsbApi.dll
+del libwinpthread-1.dll
 cd tools
 del adb.exe 
 del AdbWinApi.dll
 del AdbWinUsbApi.dll
 del libwinpthread-1.dll
 cd ..
-del adb.exe 
-del AdbWinApi.dll
-del AdbWinUsbApi.dll
-del libwinpthread-1.dll
 rd tools
 TIMEOUT 2 >nul
 GOTO CREDITS
@@ -617,7 +663,7 @@ GOTO CREDITS
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
-ECHO  FC chooser %version% %appver%
+ECHO  FC chooser %version% %appver% 
 ECHO -------------------------------------------------------------------------------------------
 Echo.
 ECHO  Credits .. alot of smart folk put in alot of work. I want to give kudos to 
