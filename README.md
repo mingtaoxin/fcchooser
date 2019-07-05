@@ -4,12 +4,13 @@ enables easily using the custom firmware made from the fc-patcher tool
 Credits to all the OG's, Matioupi, mefistotelis, fvantienen, jcase, jezzab, jan and anyone else involved with making the toolset or associated tools. Here's to the community
 
 Flow:
-- User selects aircraft type
+- Tool looks in folder for custom fw file, if found goes to dumldore
+- Else User selects aircraft type
 - Tool downloads appropriate firmware
 - Runs dumldore
 - User Connect Aircrafts
 - Files are copied and appropriate state set
-- User Starts flash
+- User Starts flash, all done
 
 This is a batch file which makes things easier to flash using the tail end of the fc patcher process, custom made firmware.
 
