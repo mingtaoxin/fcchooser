@@ -18,6 +18,34 @@ SET SAVEDATE=%DATE%
 REM change build version + versions when new builds to update
 set downloadpath="http://dji.polybotes.feralhosting.com/DJI-Firmware/BIN/! Matoupi FC_Patcher Custom Modified Firmare (Multiple Bird Models)/"
 REM GOTO FLOW
+GOTO INTRO
+:INTRO
+@echo off
+CLS
+ECHO.
+ECHO -------------------------------------------------------------------------------------------
+ECHO  Welcome to FC Chooser %appver%. 
+ECHO.
+ECHO  This batch file will help you easily patch newer DJI aicraft. Supported AC and verions are:
+echo.
+ECHO  	-:- .. Mavic Pro 1 / Mavic Platinum / Mavic Artic White 1.04.0300
+ECHO  	-:- .. Phantom 4 Standard 2.00.0700
+ECHO  	-:- .. Phantom 4 Advanced 1.00.0128
+ECHO  	-:- .. Phantom 4 Pro 1.05.0600
+ECHO  	-:- .. Phantom 4 Pro v2 1.00.1500
+ECHO  	-:- .. Inspire 2 1.02.0200
+ECHO  	-:- .. Spark 1.00.0900
+ECHO.
+ECHO. This tool will remove height and flight zone restrictions. All other mods including
+ECHO  speed changes, battery changes, motor start, etc need to be done in assistant 1.1.2.
+ECHO.
+ECHO  Use this software at your own risk. There is risk you could negatively affect your 
+ECHO  aircraft, you assume all responsiblity as you execute the required steps/software.
+echo.
+echo. created by digdat0 %ORIGDATE%
+ECHO -------------------------------------------------------------------------------------------
+ECHO.
+pause
 GOTO selectFILEMAIN
 :FLOW 
 REM This is temp to allow easy testing
@@ -591,7 +619,19 @@ Echo.
 echo Working on mounting the verify file ... please wait
 Echo.
 ECHO ------------------------------------------------------------------------------------------- 
+if "%acname%"=="Mavic" GOTO ADBTREE3
+IF "%acname%"=="p4s" GOTO ADBTREE4
+IF "%acname%"=="p4a" goto ADBTREE4
+IF "%acname%"=="p4p" goto ADBTREE4
+IF "%acname%"=="p4pv2" goto ADBTREE4
+IF "%acname%"=="i2" goto ADBTREE4
+IF "%acname%"=="spark" goto ADBTREE3
+:ADBTREE3
 adb shell mount -o bind /vendor/bin/dummy_verify.sh /sbin/dji_verify
+:ADBTREE4
+adb shell mount -o bind /vendor/bin/dummy_verify.sh /system/bin/dji_verify
+GOTO ADBNEXT
+:ADBNEXT
 TIMEOUT 2 >nul
 CLS
 ECHO.
@@ -608,6 +648,7 @@ echo.
 echo When complete, turn the aircraft off and back on.  
 echo.
 ECHO ------------------------------------------------------------------------------------------- 
+start DUMLdoreV3.exe
 pause
 CLS
 ECHO.
@@ -617,7 +658,7 @@ ECHO ---------------------------------------------------------------------------
 ECHO.
 echo Now, we are done. You will want to validate that the flight controller version has updated.
 Echo.
-Echo NoLimitDronez app can show it, we downloaded but you need to run. You want %fcver% as the version
+Echo NoLimitDronez app can show version. You want %fcver% as the version. We will download it.
 Echo.
 ECHO From here, you can modify speed and battery settings in DJI assistant 1.1.2
 echo.
@@ -632,11 +673,12 @@ ECHO.
 ECHO Downloading NoLimitDronez to verify, open the zip and run the exe
 ECHO.
 ECHO ------------------------------------------------------------------------------------------- 
-java -jar download.jar https://nolimitdronez.com/downloads/nldapp.zip nldapp.zip
+java -jar download.jar https://nolimitdronez.com/downloads/nldapp.exe nldapp.exe
 cd tools 
-copy *.zip ..
-del *.zip
+copy *.exe ..
+del *.exe
 cd ..
+start nldapp.exe
 TIMEOUT 2 >nul
 REM NEED SOLUTION NOW TO UNZIP THE FILE #TODO
 CLS
@@ -645,7 +687,7 @@ ECHO ---------------------------------------------------------------------------
 ECHO  FC chooser %version% %appver% 						Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
-ECHO You are literally all done! 
+ECHO You are all done! 
 echo.
 echo Fly safe and responsibly. Now going to cleanup some things ...
 echo.
