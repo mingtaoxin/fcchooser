@@ -42,6 +42,10 @@ ECHO.
 ECHO  Use this software at your own risk. There is risk you could negatively affect your 
 ECHO  aircraft, you assume all responsiblity as you execute the required steps/software.
 echo.
+ECHO  Credits .. alot of smart folk put in alot of work. I want to give kudos to all the
+ECHO  OG's, Matioupi, mefistotelis, fvantienen, brett883 and anyone else involved 
+ECHO  with making the fc patcher toolset or associated tools. Here's to the community.
+echo.
 echo. created by digdat0 %ORIGDATE%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
@@ -670,7 +674,7 @@ ECHO ---------------------------------------------------------------------------
 ECHO  FC chooser %version% %appver% 						Aircraft: %acname%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
-ECHO Downloading NoLimitDronez to verify, open the zip and run the exe
+ECHO Downloading NoLimitDronez to verify, we'll even open it too!
 ECHO.
 ECHO ------------------------------------------------------------------------------------------- 
 java -jar download.jar https://nolimitdronez.com/downloads/nldapp.exe nldapp.exe
@@ -679,8 +683,8 @@ copy *.exe ..
 del *.exe
 cd ..
 start nldapp.exe
-TIMEOUT 2 >nul
-REM NEED SOLUTION NOW TO UNZIP THE FILE #TODO
+GOTO DONE
+:DONE
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
