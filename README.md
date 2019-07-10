@@ -1,6 +1,8 @@
 # fcchooser
 enables easily using the custom firmware made from the fc-patcher tool
 
+currently supported (july 9 19): Mavic Pro 1 / Mavic Platinum / Mavic Artic White 1.04.0300, Spark 1.00.0900
+
 Credits to all the OG's, Matioupi, mefistotelis, fvantienen, jcase, jezzab, jan and anyone else involved with making the toolset or associated tools. Here's to the community
 
 Flow:
