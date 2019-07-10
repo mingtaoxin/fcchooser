@@ -454,8 +454,7 @@ set acname=Spark
 set acmodel=wm100
 set neededver=1.00.0900
 set fcver=03.02.43.20
-rem set fwname=V1.00.0900_spark_dji_system.bin
-set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
+set fwname=V01.00.0900a_Brett8883_Spark_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -492,7 +491,7 @@ ECHO ---------------------------------------------------------------------------
 TIMEOUT 2 >nul
 GOTO SUPERPATCHER
 :SUPERPATCHER
-REM Borrowed from brett8883 https://github.com/brett8883/DJI_Super-Patcher
+REM Borrowed from brett8883 with some tweaks https://github.com/brett8883/DJI_Super-Patcher
 @echo off
 REM This is where you can verify and then download dumldore and nld
 md tools
@@ -583,7 +582,7 @@ IF "%acname%"=="p4a" goto ADBTREE2
 IF "%acname%"=="p4p" goto ADBTREE2
 IF "%acname%"=="p4pv2" goto ADBTREE2
 IF "%acname%"=="i2" goto ADBTREE2
-IF "%acname%"=="spark" goto ADBTREE1
+IF "%acname%"=="Spark" goto ADBTREE1
 :ADBTREE1
 adb shell cd /vendor/bin/; chown root:root dummy_verify.sh; chmod 755 dummy_verify.sh; cp /sbin/dji_verify /vendor/bin/original_dji_verify_copy; sync; cd /
 GOTO NEXTUP
@@ -629,7 +628,7 @@ IF "%acname%"=="p4a" goto ADBTREE4
 IF "%acname%"=="p4p" goto ADBTREE4
 IF "%acname%"=="p4pv2" goto ADBTREE4
 IF "%acname%"=="i2" goto ADBTREE4
-IF "%acname%"=="spark" goto ADBTREE3
+IF "%acname%"=="Spark" goto ADBTREE3
 :ADBTREE3
 adb shell mount -o bind /vendor/bin/dummy_verify.sh /sbin/dji_verify
 :ADBTREE4
