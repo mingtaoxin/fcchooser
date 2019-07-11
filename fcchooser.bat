@@ -17,6 +17,7 @@ SET ORIGDATE=June 29, 2019
 SET SAVEDATE=%DATE%
 REM change build version + versions when new builds to update
 set downloadpath="http://dji.polybotes.feralhosting.com/DJI-Firmware/BIN/! Matoupi FC_Patcher Custom Modified Firmare (Multiple Bird Models)/"
+set downloadpath2="https://github.com/digdat0/fcchooser/raw/master/fw/"
 REM GOTO FLOW
 GOTO INTRO
 :INTRO
@@ -28,12 +29,12 @@ ECHO  Welcome to FC Chooser %appver%.
 ECHO.
 ECHO  This batch file will help you easily patch newer DJI aicraft. Supported AC and verions are:
 echo.
-ECHO  	-:- .. Mavic Pro 1 / Mavic Platinum / Mavic Artic White 1.04.0300
+ECHO  	-:- .. Mavic Pro / Platinum / Artic White 1.04.0300
 ECHO  	-:- .. Phantom 4 Standard 2.00.0700
 ECHO  	-:- .. Phantom 4 Advanced 1.00.0128
 ECHO  	-:- .. Phantom 4 Pro 1.05.0600
 ECHO  	-:- .. Phantom 4 Pro v2 1.00.1500
-ECHO  	-:- .. Inspire 2 1.02.0200
+ECHO  	-:- .. Inspire 2 1.02.0200 (not supported yet)
 ECHO  	-:- .. Spark 1.00.0900
 ECHO.
 ECHO. This tool will remove height and flight zone restrictions. All other mods including
@@ -46,7 +47,7 @@ ECHO  Credits .. alot of smart folk put in alot of work. I want to give kudos to
 ECHO  OG's, Matioupi, mefistotelis, fvantienen, brett883 and anyone else involved 
 ECHO  with making the fc patcher toolset or associated tools. Here's to the community.
 echo.
-echo. created by digdat0 %ORIGDATE%
+echo. batch file created by digdat0 %ORIGDATE%
 ECHO -------------------------------------------------------------------------------------------
 ECHO.
 pause
@@ -179,7 +180,7 @@ ECHO   2) Phantom 4 Standard
 ECHO   3) Phantom 4 Advanced
 ECHO   4) Phantom 4 Pro
 ECHO   5) Phantom 4 Pro v2
-ECHO   6) Inspire 2
+ECHO   6) Inspire 2 (Currently not supported, will download Mavic FW)
 ECHO   7) Spark
 ECHO.
 SET /P M=Chose your aircraft: 
@@ -241,7 +242,7 @@ set acmodel=wm330
 set neededver=2.00.0700
 set fcver=03.02.44.07
 REM set fwname=V2.00.0700_p4s_dji_system.bin
-set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
+set fwname=V2.00.0700_Brett8883_P4S_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -258,7 +259,7 @@ GOTO SUPERPATCHER
 ECHO.
 ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%fwname% %fwname%
+java -jar download.jar %downloadpath2%%fwname% %fwname%
 )
 cd tools
 copy %fwname% ..
@@ -284,7 +285,7 @@ set acmodel=wm332
 set neededver=1.00.0128
 set fcver=03.02.35.05
 rem set fwname=V1.00.0128_p4a_dji_system.bin
-set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
+set fwname=V1.00.0128_Brett8883_P4A_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -301,7 +302,7 @@ GOTO SUPERPATCHER
 ECHO.
 ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%fwname% %fwname%
+java -jar download.jar %downloadpath2%%fwname% %fwname%
 )
 cd tools
 copy %fwname% ..
@@ -326,7 +327,7 @@ set acmodel=wm331
 set neededver=1.05.0600
 set fcver=03.02.44.07
 rem set fwname=V1.05.0600_p4p_dji_system.bin
-set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
+set fwname=V1.05.0600_Brett8883_P4P_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -343,7 +344,7 @@ GOTO SUPERPATCHER
 ECHO.
 ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%fwname% %fwname%
+java -jar download.jar %downloadpath2%%fwname% %fwname%
 )
 cd tools
 copy %fwname% ..
@@ -369,7 +370,7 @@ set acmodel=wm335
 set neededver=1.00.1500
 set fcver=03.03.04.13
 rem set fwname=V1.00.1500_p4pv2_dji_system.bin
-set fwname=V01.04.0300b_Quad808_Mavic_dji_system.tar
+set fwname=V1.00.1500_Brett8883_P4PV2_dji_system.bin
 CLS
 ECHO.
 ECHO -------------------------------------------------------------------------------------------
@@ -386,7 +387,7 @@ GOTO SUPERPATCHER
 ECHO.
 ECHO Downloading %acname% custom firmware file, please wait .. 
 ECHO.
-java -jar download.jar %downloadpath%%fwname% %fwname%
+java -jar download.jar %downloadpath2%%fwname% %fwname%
 )
 cd tools
 copy %fwname% ..
